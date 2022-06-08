@@ -70,24 +70,14 @@ app.layout = html.Div(
 
 
 @app.callback(
-    Output('pie_graph', 'children'),
-    [
-        Input('crew_type_dd', 'value'),
-        Input('date_picker_range', 'start_date'),
-        Input('date_picker_range', 'end_date')
-    ]
+# FIGURE OUT THE CALLBACK PARAMETERS
 )
 def update_output_div(crew_type_dd, start_date, end_date):
+    # Your biggest hint on if filters are working
     output = html.Div("{0} {1} {2}".format(crew_type_dd, start_date, end_date))
-    df = sql_queries.get_pie_data(crew_type_dd, start_date, end_date)
-    output = dcc.Graph(
-        figure=px.pie(
-            df,
-            values='crew_count',
-            names='crew_type',
-            title='Crew of the Death Star'
-        )
-    )
+
+    # 1 Get the data
+    # 2 Build a plotly pie graph, count crew by type
 
     return output
 

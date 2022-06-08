@@ -7,30 +7,33 @@ import csv
 engine = sa.create_engine('sqlite:///deathstar.db')
 connection = engine.connect()
 
-def write_crew(passenger_manifest):
+# A helpful bit of python for getting a dict of crew types
+"""
     type_dic = {}
     sql="SELECT * FROM crew_type"
     result = engine.execute(sql)
     result_arry = [list(ele) for ele in result.fetchall()]
     for x in result_arry:
         type_dic[x[1]] = x[0]
+"""
 
-    for p in passenger_manifest:
-        if p['crew_type'] in type_dic.keys():
-            sql = """ INSERT INTO crew (crewman_name, crew_type_id, boarding_date, offboarding_date)
-                        VALUES ('{}', {},'{}', Null) """.format(p['crewman_name'], type_dic[p['crew_type']], p['boarding_date'])
-            result = engine.execute(sql)
-
-
-def load_csv(csv_name):
+# A helpful bit of python for reading a csv
+"""
     passenger_manifest = []
     with open(csv_name, newline='') as csvfile:
         passenger_manifest = []
         reader = csv.DictReader(csvfile)
         for row in reader:
             passenger_manifest.append(row)
+"""
 
-    write_crew(passenger_manifest)
+# BUILD SOME FUNCTIONS TO WRITE YOUR DATA
+# REMEMBER: open and close your dates, make sure your crew_type_id is right. 
+
 
 if __name__ == '__main__':
-    load_csv('shuttle_2022_06_01.csv')
+    # two file names 
+    # shuttle_2022_06_01.csv
+    # shuttle_2022_06_08.csv
+
+    # CALL FUNCTIONS HERE to fill out your tables and update the db

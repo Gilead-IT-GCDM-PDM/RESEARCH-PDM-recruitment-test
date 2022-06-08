@@ -7,10 +7,7 @@ engine = sa.create_engine('sqlite:///deathstar.db')
 connection = engine.connect()
 
 # An example of a function which selects from the db
-
-
 def select_star():
-
     sql = """SELECT * FROM CREW"""
     result = engine.execute(sql)
     result_arry = [list(ele) for ele in result.fetchall()]
@@ -18,25 +15,14 @@ def select_star():
     df = pd.DataFrame(result_arry, columns=result_keys)
     return df
 
+
 # should be the only query you need for the dashboard
 def get_pie_data(crew_type_dd, start_date, end_date):
     
-    if crew_type_dd == "All":
-        filter_type = ""
-    elif crew_type_dd == "Crewmen":
-        filter_type = "and crew_type.is_vip is Null"
-    elif crew_type_dd == "VIP":
-        filter_type = "and crew_type.is_vip = 'Y'"
-    else:
-        filter_type = ""
+    # SUGGESTION Handle crew_type_dd 
 
-    sql = """select crew_type.crew_type as crew_type, count(crew.crewman_name) as crew_count from crew
-left join crew_type
-on crew.crew_type_id = crew_type.crew_type_id
-where crew.boarding_date >= '{1}'
-and (crew.offboarding_date is Null or crew.offboarding_date <= '{2}')
-{0}
-group by crew_type.crew_type""".format(filter_type, start_date, end_date)
+    # INSERT YOUR SQL HERE 
+    sql=""""""
 
     #print(sql)
     result = engine.execute(sql)
