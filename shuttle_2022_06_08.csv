@@ -1,0 +1,4 @@
+crewman_name,crew_type,boarding_date,offboarding_date,is_vip
+storm_trooper_0,Storm Trooper,,2022-06-08,
+storm_trooper_1,Storm Trooper,,2022-06-08,
+Luke Skywalker,Rebel Scum,2022-06-08,,Y

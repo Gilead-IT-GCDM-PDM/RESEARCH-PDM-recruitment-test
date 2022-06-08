@@ -1,0 +1,6 @@
+dash
+dash-bootstrap-components
+plotly-express
+sqlite3
+pandas
+sqlalchemy
