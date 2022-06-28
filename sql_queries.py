@@ -17,14 +17,19 @@ def select_star():
 
 
 # should be the only query you need for the dashboard
-def get_pie_data(crew_type_dd, start_date, end_date):
+def get_pie_data(crew_type_dd, start_date):
     
     # SUGGESTION Handle crew_type_dd 
 
-    # INSERT YOUR SQL HERE 
-    sql=""""""
+    sql = """select crew_type.crew_type as crew_type, count(crew.crewman_name) as crew_count from crew
+left join crew_type
+on crew.crew_type_id = crew_type.crew_type_id
+where crew.boarding_date <= '{1}'
+and (crew.offboarding_date is Null or crew.offboarding_date >= '{1}')
+{0}
+group by crew_type.crew_type""".format(filter_type, start_date)
 
-    #print(sql)
+    print(sql)
     result = engine.execute(sql)
     result_arry = [list(ele) for ele in result.fetchall()]
     result_keys = result.keys()
