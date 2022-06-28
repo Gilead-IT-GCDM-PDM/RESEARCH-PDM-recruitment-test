@@ -70,23 +70,12 @@ app.layout = html.Div(
 
 
 @app.callback(
-    Output('pie_graph', 'children'),
-    [
-        Input('crew_type_dd', 'value'),
-        Input('date_picker', 'date')
-    ]
+    # Determine what you need in your callbacks
 )
 def update_output_div(crew_type_dd, pick_date):
     output = html.Div("{0} {1}".format(crew_type_dd, pick_date))
     df = sql_queries.get_pie_data(crew_type_dd, pick_date)
-    output = dcc.Graph(
-        figure=px.pie(
-            df,
-            values='crew_count',
-            names='crew_type',
-            title='Crew of the Death Star'
-        )
-    )
+    # Determine how to build the pie graph and put it to the output
 
     return output
 

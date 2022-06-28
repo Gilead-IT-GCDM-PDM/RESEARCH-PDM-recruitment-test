@@ -21,13 +21,8 @@ def get_pie_data(crew_type_dd, start_date):
     
     # SUGGESTION Handle crew_type_dd 
 
-    sql = """select crew_type.crew_type as crew_type, count(crew.crewman_name) as crew_count from crew
-left join crew_type
-on crew.crew_type_id = crew_type.crew_type_id
-where crew.boarding_date <= '{1}'
-and (crew.offboarding_date is Null or crew.offboarding_date >= '{1}')
-{0}
-group by crew_type.crew_type""".format(filter_type, start_date)
+    # Determine what the SQL statement should be to get the data
+    sql = """ """
 
     print(sql)
     result = engine.execute(sql)
