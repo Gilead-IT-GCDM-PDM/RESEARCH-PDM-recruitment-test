@@ -46,12 +46,12 @@ app.layout = html.Div(
                 dbc.Col(
                     [
                         html.Div("Start Date"),
-                        dcc.DatePickerRange(
-                            id='date_picker_range',
+                        dcc.DatePickerSingle(
+                            id='date_picker',
                             min_date_allowed=date(2022, 5, 1),
                             max_date_allowed=date(2022, 6, 20),
-                            start_date=date(2022, 5, 1),
-                            end_date=date(2022, 6, 20)
+                            # initial_visible_month=date(2022, 5, 1),
+                            date=date(2022, 6, 20)
                         ),
                     ],
                     width=4
@@ -73,13 +73,12 @@ app.layout = html.Div(
     Output('pie_graph', 'children'),
     [
         Input('crew_type_dd', 'value'),
-        Input('date_picker_range', 'start_date'),
-        Input('date_picker_range', 'end_date')
+        Input('date_picker', 'date')
     ]
 )
-def update_output_div(crew_type_dd, start_date, end_date):
-    output = html.Div("{0} {1} {2}".format(crew_type_dd, start_date, end_date))
-    df = sql_queries.get_pie_data(crew_type_dd, start_date, end_date)
+def update_output_div(crew_type_dd, pick_date):
+    output = html.Div("{0} {1}".format(crew_type_dd, pick_date))
+    df = sql_queries.get_pie_data(crew_type_dd, pick_date)
     output = dcc.Graph(
         figure=px.pie(
             df,
