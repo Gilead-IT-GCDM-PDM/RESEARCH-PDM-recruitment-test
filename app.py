@@ -46,12 +46,12 @@ app.layout = html.Div(
                 dbc.Col(
                     [
                         html.Div("Start Date"),
-                        dcc.DatePickerRange(
-                            id='date_picker_range',
+                        dcc.DatePickerSingle(
+                            id='date_picker',
                             min_date_allowed=date(2022, 5, 1),
                             max_date_allowed=date(2022, 6, 20),
-                            start_date=date(2022, 5, 1),
-                            end_date=date(2022, 6, 20)
+                            # initial_visible_month=date(2022, 5, 1),
+                            date=date(2022, 6, 20)
                         ),
                     ],
                     width=4
@@ -70,14 +70,12 @@ app.layout = html.Div(
 
 
 @app.callback(
-# FIGURE OUT THE CALLBACK PARAMETERS
+    # Determine what you need in your callbacks
 )
-def update_output_div(crew_type_dd, start_date, end_date):
-    # Your biggest hint on if filters are working
-    output = html.Div("{0} {1} {2}".format(crew_type_dd, start_date, end_date))
-
-    # 1 Get the data
-    # 2 Build a plotly pie graph, count crew by type
+def update_output_div(crew_type_dd, pick_date):
+    output = html.Div("{0} {1}".format(crew_type_dd, pick_date))
+    df = sql_queries.get_pie_data(crew_type_dd, pick_date)
+    # Determine how to build the pie graph and put it to the output
 
     return output
 
